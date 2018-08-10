@@ -4,9 +4,15 @@
         "port": 27017,
         "user": "username",
         "password": "password",
-        "databaseName": "eventstore"
+        "databaseName": "dummystore"
     },
     "app": {
         "port": "8081"
+    },
+    "redis": {
+        "port": 6379,
+        "username": "username",
+        "password": "password",
+        "connectionString": "localhost"
     }
 }
