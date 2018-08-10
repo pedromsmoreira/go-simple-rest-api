@@ -4,6 +4,7 @@ package configurations
 type Configuration struct {
 	MongoDb MongoConfig
 	App     AppConfig
+	Redis   RedisConfig
 }
 
 // MongoConfig contains the fields to access and manage MongoDb connection
