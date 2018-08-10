@@ -1,0 +1,12 @@
+{
+    "mongodb": {
+        "connectionString": "localhost",
+        "port": 27017,
+        "user": "username",
+        "password": "password",
+        "databaseName": "eventstore"
+    },
+    "app": {
+        "port": "8081"
+    }
+}
