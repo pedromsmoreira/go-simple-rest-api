@@ -1,4 +1,6 @@
 # go-simple-rest-api
+[![CircleCI](https://circleci.com/gh/pedromsmoreira/go-simple-rest-api/tree/master.svg?style=svg)](https://circleci.com/gh/pedromsmoreira/go-simple-rest-api/tree/master)
+[![CodeFactor](https://www.codefactor.io/repository/github/pedromsmoreira/go-simple-rest-api/badge)](https://www.codefactor.io/repository/github/pedromsmoreira/go-simple-rest-api)
 Go Rest API with Iris Framework
 
 # Why this?
