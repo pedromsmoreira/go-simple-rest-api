@@ -4,8 +4,6 @@ import (
 	"log"
 	s "strings"
 
-	"github.com/pedromsmoreira/go-simple-rest-api/utils"
-
 	"github.com/kataras/iris"
 	"github.com/kataras/iris/middleware/logger"
 	"github.com/kataras/iris/middleware/recover"
@@ -14,7 +12,7 @@ import (
 
 func main() {
 
-	loader := configurations.JSONLoader{Fs: utils.OsFS{}}
+	loader := configurations.JSONLoader{Fs: configurations.OsFS{}}
 	config, err := loader.Load()
 
 	if err != nil {

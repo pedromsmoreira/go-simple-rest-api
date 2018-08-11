@@ -13,3 +13,5 @@
 
 # Dev config files
 *.dev.json
+
+.DS_Store

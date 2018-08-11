@@ -7,7 +7,6 @@ import (
 )
 
 func TestJSONLoaderLoadShouldReturnNilErr(t *testing.T) {
-	// mock os.Open
 	loader := configurations.JSONLoader{
 		Fs: configurations.OsFS{},
 	}
@@ -19,7 +18,6 @@ func TestJSONLoaderLoadShouldReturnNilErr(t *testing.T) {
 }
 
 func TestJSONLoaderLoadShouldReturnConfigFile(t *testing.T) {
-	// mock os.Open
 	loader := configurations.JSONLoader{
 		Fs: configurations.OsFS{},
 	}

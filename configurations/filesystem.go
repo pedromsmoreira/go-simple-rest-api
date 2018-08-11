@@ -7,8 +7,6 @@ import (
 	"runtime"
 )
 
-// var fs FileSystem = osFS{}
-
 // FileSystem is an interface that shows the behavior when accessing the filesystem
 type fileSystem interface {
 	Open(name string) (file, error)
