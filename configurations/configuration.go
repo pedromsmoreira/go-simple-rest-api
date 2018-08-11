@@ -24,7 +24,6 @@ type AppConfig struct {
 // RedisConfig contains the fields to access and manage Redis connection
 type RedisConfig struct {
 	ConnectionString string
-	Port             int
 	User             string
 	Password         string
 }

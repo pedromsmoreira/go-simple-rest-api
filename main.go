@@ -8,12 +8,20 @@ import (
 	"github.com/kataras/iris/middleware/logger"
 	"github.com/kataras/iris/middleware/recover"
 	"github.com/pedromsmoreira/go-simple-rest-api/configurations"
+	"github.com/pedromsmoreira/go-simple-rest-api/database"
+	"github.com/pedromsmoreira/go-simple-rest-api/healthcheck"
 )
 
 func main() {
 
 	loader := configurations.JSONLoader{Fs: configurations.OsFS{}}
 	config, err := loader.Load()
+
+	redisDb := &database.RedisRepository{
+		Client: database.CreateClient(config.Redis),
+	}
+
+	hcController := healthcheck.NewHealthCheckController(redisDb)
 
 	if err != nil {
 		log.Panic("Error occurred loading configs.")
@@ -29,9 +37,7 @@ func main() {
 	// same as app.Handle("GET", "/ping", [...])
 	// Method:   GET
 	// Resource: http://localhost:8080/ping
-	app.Get("/healthchecks/shallow", func(ctx iris.Context) {
-		ctx.WriteString("ping")
-	})
+	app.Get("/healthchecks/shallow", hcController.Shallow)
 
 	app.Get("/healthchecks/deep", func(ctx iris.Context) {
 		ctx.JSON(iris.Map{"Message": "Deep Healthcheck"})
