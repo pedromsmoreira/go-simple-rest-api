@@ -37,11 +37,14 @@ func main() {
 	// same as app.Handle("GET", "/ping", [...])
 	// Method:   GET
 	// Resource: http://localhost:8080/ping
-	app.Get("/healthchecks/shallow", hcController.Shallow)
+	healthCheckAPI := app.Party("/healthchecks")
+	{
+		healthCheckAPI.Get("/shallow", hcController.Shallow)
 
-	app.Get("/healthchecks/deep", func(ctx iris.Context) {
-		ctx.JSON(iris.Map{"Message": "Deep Healthcheck"})
-	})
+		healthCheckAPI.Get("/deep", func(ctx iris.Context) {
+			ctx.JSON(iris.Map{"Message": "Deep Healthcheck"})
+		})
+	}
 
 	app.Run(iris.Addr(s.Join([]string{":", config.App.Port}, "")), iris.WithoutServerError(iris.ErrServerClosed))
 }

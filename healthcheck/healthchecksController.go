@@ -9,6 +9,12 @@ type HealthCheckController struct {
 	RedisDb database.Repository
 }
 
+func NewHealthCheckController(redis database.Repository) *HealthCheckController {
+	return &HealthCheckController{
+		RedisDb: redis,
+	}
+}
+
 func (hc *HealthCheckController) Shallow(ctx iris.Context) {
 	hcs := make([]Shallow, 0)
 	pong, err := hc.RedisDb.Ping()
@@ -24,9 +30,3 @@ func (hc *HealthCheckController) Shallow(ctx iris.Context) {
 }
 
 func (hc *HealthCheckController) Deep(ctx iris.Context) {}
-
-func NewHealthCheckController(redis database.Repository) *HealthCheckController {
-	return &HealthCheckController{
-		RedisDb: redis,
-	}
-}
