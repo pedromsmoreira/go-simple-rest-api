@@ -18,7 +18,7 @@ type MongoConfig struct {
 
 // AppConfig contains fields that have common/generic values for application startup
 type AppConfig struct {
-	Port string
+	Address string
 }
 
 // RedisConfig contains the fields to access and manage Redis connection

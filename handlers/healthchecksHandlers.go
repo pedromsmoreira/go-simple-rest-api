@@ -10,6 +10,7 @@ import (
 
 type HealthCheckHandler struct {
 	RedisDb database.Repository
+	Routes  Routes
 }
 
 func NewHealthCheckHandler(redis database.Repository) *HealthCheckHandler {
@@ -40,4 +41,15 @@ func redisPing(redis database.Repository) model.Shallow {
 	}
 
 	return model.NewShallow("Redis", pong, true)
+}
+
+func CreateHandlerRoutes(hc *HealthCheckHandler) Routes {
+	return Routes{
+		Route{
+			Method:      "GET",
+			Name:        "Shallow Healthchecks",
+			Pattern:     "/healthchecks/shallow",
+			HandlerFunc: hc.Shallow,
+		},
+	}
 }
