@@ -1,4 +1,4 @@
-package healthcheck
+package model
 
 type ShallowHealthChecks struct {
 	HealthChecks []Shallow `json:"healthchecks"`

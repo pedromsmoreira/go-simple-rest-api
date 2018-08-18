@@ -1,15 +1,13 @@
 package main
 
 import (
+	"fmt"
 	"log"
-	s "strings"
+	"net/http"
 
-	"github.com/kataras/iris"
-	"github.com/kataras/iris/middleware/logger"
-	"github.com/kataras/iris/middleware/recover"
 	"github.com/pedromsmoreira/go-simple-rest-api/configurations"
 	"github.com/pedromsmoreira/go-simple-rest-api/database"
-	"github.com/pedromsmoreira/go-simple-rest-api/healthcheck"
+	"github.com/pedromsmoreira/go-simple-rest-api/handlers"
 )
 
 func main() {
@@ -21,30 +19,16 @@ func main() {
 		Client: database.CreateClient(config.Redis),
 	}
 
-	hcController := healthcheck.NewHealthCheckController(redisDb)
-
 	if err != nil {
 		log.Panic("Error occurred loading configs.")
 		panic(err)
 	}
 
-	app := iris.New()
-	app.Logger().SetLevel("debug")
+	hcHandler := handlers.NewHealthCheckHandler(redisDb)
 
-	app.Use(recover.New())
-	app.Use(logger.New())
+	router := handlers.CreateRoutes(hcHandler)
 
-	// same as app.Handle("GET", "/ping", [...])
-	// Method:   GET
-	// Resource: http://localhost:8080/ping
-	healthCheckAPI := app.Party("/healthchecks")
-	{
-		healthCheckAPI.Get("/shallow", hcController.Shallow)
-
-		healthCheckAPI.Get("/deep", func(ctx iris.Context) {
-			ctx.JSON(iris.Map{"Message": "Deep Healthcheck"})
-		})
+	if err := http.ListenAndServe(fmt.Sprintf(":%s", config.App.Port), router); err != nil {
+		log.Fatal(err)
 	}
-
-	app.Run(iris.Addr(s.Join([]string{":", config.App.Port}, "")), iris.WithoutServerError(iris.ErrServerClosed))
 }
