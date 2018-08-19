@@ -1,0 +1,6 @@
+goos: darwin
+goarch: amd64
+pkg: github.com/pedromsmoreira/go-simple-rest-api/handlers
+BenchmarkShallowHandler-4   	  500000	      2219 ns/op	     768 B/op	       9 allocs/op
+PASS
+ok  	github.com/pedromsmoreira/go-simple-rest-api/handlers	1.153s

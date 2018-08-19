@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 
 	"github.com/pedromsmoreira/go-simple-rest-api/database"
@@ -20,12 +21,14 @@ func NewHealthCheckHandler(redis database.Repository) *HealthCheckHandler {
 }
 
 func (hc *HealthCheckHandler) Shallow(w http.ResponseWriter, r *http.Request) {
-	hcs := make([]model.Shallow, 0)
-	hcs = append(hcs, redisPing(hc.RedisDb))
+	hcs := []model.Shallow{redisPing(hc.RedisDb)}
 
-	if err := json.NewEncoder(w).Encode(hcs); err != nil {
-		http.Error(w, "", http.StatusInternalServerError)
+	resp, err := json.Marshal(&hcs)
+	if err != nil {
+		http.Error(w, "Error Converting to json.", http.StatusInternalServerError)
 	}
+
+	fmt.Fprint(w, string(resp))
 }
 
 func (hc *HealthCheckHandler) Deep(w http.ResponseWriter, r *http.Request) {

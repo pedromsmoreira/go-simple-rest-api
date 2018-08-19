@@ -7,7 +7,7 @@ type ShallowHealthChecks struct {
 type Shallow struct {
 	InfraName string `json:"name"`
 	Msg       string `json:"message"`
-	IsAlive   bool   `json:"isAlive"`
+	IsAlive   bool   `json:"alive"`
 }
 
 func NewShallow(iname string, msg string, isAlive bool) Shallow {
