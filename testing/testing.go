@@ -10,7 +10,6 @@ var MockDevConfig = configurations.Configuration{
 		ConnectionString: "testconn",
 		Password:         "testPassword",
 		User:             "testUser",
-		Port:             1,
 	},
 	MongoDb: configurations.MongoConfig{
 		ConnectionString: "testconn",
